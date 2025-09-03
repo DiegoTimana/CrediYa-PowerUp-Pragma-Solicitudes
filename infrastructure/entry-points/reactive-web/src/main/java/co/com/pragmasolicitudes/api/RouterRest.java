@@ -17,7 +17,7 @@ public class RouterRest {
     @Bean
     public RouterFunction<ServerResponse> routerFunction(Handler handler) {
         return route()
-                .POST("/api/v1/solicitud", handler::listenRegistrarSolicitud, OpenApiSwagger::registrarUsuario)
+                .POST("/api/v1/solicitud", handler::listenRegistrarSolicitud, OpenApiSwagger::registrarSolicitud)
                 .build();
     }
 }

@@ -1,5 +1,8 @@
 package co.com.pragmasolicitudes.api.config;
 
+import co.com.pragmasolicitudes.api.dto.CrearSolicitudDTO;
+import co.com.pragmasolicitudes.api.dto.ErrorResponseDTO;
+import co.com.pragmasolicitudes.api.dto.SolicitudDTO;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import lombok.experimental.UtilityClass;
@@ -30,25 +33,24 @@ public class OpenApiSwagger {
                 .info(new Info()
                         .title("API de solicitudes - CrediYa")
                         .version("1.0.0")
-                        .description("Microservicio para gestión de solicitudes con WebFlux"));
+                        .description("Microservicio para gestión de solicitudes de crédito en CrediYa con WebFlux"));
     }
 
-    public Builder registrarUsuario(Builder builder) {
-//        return builder
-//                .operationId("registrarUsuario")
-//                .description("Crea un nuevo usuario")
-//                .tag("Usuario")
-//                .requestBody(requestBodyBuilder()
-//                        .required(true)
-//                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
-//                                .schema(schemaBuilder().implementation(CrearUsuarioDTO.class))))
-//                .response(responseBuilder().responseCode(CREATED_CODE).description("Usuario registrado")
-//                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
-//                                .schema(schemaBuilder().implementation(UsuarioDTO.class))))
-//                .response(responseBuilder().responseCode(CONFLICT_ERROR_CODE).description(BAD_REQUEST)
-//                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
-//                                .schema(schemaBuilder().implementation(ErrorResponseDTO.class))));
-        return  null;
+    public Builder registrarSolicitud(Builder builder) {
+        return builder
+                .operationId("registrarSolicitud")
+                .description("Crea una nueva solicitud de crédito en CrediYa")
+                .tag("Solicitud")
+                .requestBody(requestBodyBuilder()
+                        .required(true)
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(CrearSolicitudDTO.class))))
+                .response(responseBuilder().responseCode(CREATED_CODE).description("Solicitud registrada")
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(SolicitudDTO.class))))
+                .response(responseBuilder().responseCode(CONFLICT_ERROR_CODE).description(BAD_REQUEST)
+                        .content(contentBuilder().mediaType(MediaType.APPLICATION_JSON_VALUE)
+                                .schema(schemaBuilder().implementation(ErrorResponseDTO.class))));
     }
 
 

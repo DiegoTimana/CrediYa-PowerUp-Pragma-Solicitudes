@@ -22,7 +22,7 @@ public class SolicitudUseCase {
         //registrar autamaticamente con un estado inicial de pendiente por revision
         // 1. Validar que el tipo de préstamo sea existente.
         return tipoPrestamoRepository.consultarPorId(solicitud.getIdTipoPrestamo())
-                .switchIfEmpty(Mono.error(new NoSuchElementException("El tipo de prestamo no existe")))
+                .switchIfEmpty(Mono.error(new IllegalArgumentException("El tipo de prestamo no existe")))
                 .flatMap(tipoPrestamo -> {
                     // 2. Si el tipo de prestamo existe, continúa con el guardado de la solicitud.
                     solicitud.setIdEstado(1L); //pendiente mapear esto a un enum puede ser

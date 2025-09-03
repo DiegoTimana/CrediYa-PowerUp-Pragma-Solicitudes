@@ -2,6 +2,7 @@ package co.com.pragmasolicitudes.api;
 
 import co.com.pragmasolicitudes.api.dto.CrearSolicitudDTO;
 import co.com.pragmasolicitudes.api.dto.SolicitudDTO;
+import co.com.pragmasolicitudes.log.CrediYaLog;
 import co.com.pragmasolicitudes.model.solicitud.Solicitud;
 import co.com.pragmasolicitudes.usecase.solicitud.SolicitudUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,15 +22,15 @@ public class Handler {
 //private  final UseCase2 useCase2;
     private final SolicitudUseCase solicitudUseCase;
     private final ObjectMapper objectMapper;
-    private static final Logger logger = LoggerFactory.getLogger(Handler.class);
+    private final CrediYaLog crediYaLog;
 
     public Mono<ServerResponse> listenRegistrarSolicitud(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(CrearSolicitudDTO.class)
                 .map(solicitudDTO -> objectMapper.convertValue(solicitudDTO, Solicitud.class))
-                .doOnNext(solicitud -> logger.info("Iniciando registro de una solicitud de prestamo, cédula del cliente: {}",
+                .doOnNext(solicitud -> crediYaLog.info("Iniciando registro de una solicitud de prestamo, cédula del cliente: {}",
                         solicitud.getDocumentoIdentidad()))
                 .flatMap(solicitudUseCase::guardarSolicitud)
-                .doOnSuccess(solicitudGuardada -> logger.info("Solicitud registrada exitosamente con id: {}", solicitudGuardada.getIdSolicitud()))
+                .doOnSuccess(solicitudGuardada -> crediYaLog.info("Solicitud registrada exitosamente con id: {}", solicitudGuardada.getIdSolicitud()))
                 .flatMap(solicitudGuardada ->
                         ServerResponse.ok()
                                 .contentType(MediaType.APPLICATION_JSON)

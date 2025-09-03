@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':model')
+    implementation 'org.springframework:spring-context'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation "org.slf4j:slf4j-api:2.0.17"
+}

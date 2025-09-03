@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: "solicitudes"
@@ -21,4 +21,19 @@ management:
       probes:
         enabled: true
 cors:
-  allowed-origins: "http://localhost:4200,http://localhost:8080"
+  allowed-origins: "http://localhost:4200,http://localhost:8080, http://localhost:8081"
+
+springdoc:
+  swagger-ui:
+    path: "/api/doc/swagger-ui.html"
+  api-docs:
+    path: "/api/doc/api-docs"
+
+adapters:
+  r2dbc:
+    host: "localhost"
+    port: 5433
+    database: "crediYa-power-up"
+    schema: "public"
+    username: ${USUARIO_POSTGRES}
+    password: ${CLAVE_POSTGRES}
